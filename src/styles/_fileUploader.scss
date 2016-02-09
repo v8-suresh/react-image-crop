@@ -1,0 +1,49 @@
+.fileUploader {
+    position: relative;
+    font-size: 20px;
+    background-color: #c8dadf;
+    position: relative;
+    padding: 50px 20px;
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    text-align: center;
+    overflow: hidden;
+    max-width: 960px;
+    margin: auto;
+}
+
+.fileUploader--dragging {
+    background-color: #ffffff;
+}
+
+
+.fileUploader__file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.fileUploader__label {
+  max-width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.fileUploader__label:hover strong {
+  color: #39bfd3;
+}
+
+.fileUploader__icon {
+    width: 60px;
+    height: 60px;
+    display: block;
+    margin: auto;
+}

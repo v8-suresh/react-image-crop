@@ -1,55 +1,82 @@
 import "./styles/main.scss";
 
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import ReactCrop from 'react-image-crop';
+import Logo from './components/Logo';
+import FileUploader from './components/FileUploader';
+import ImageCropper from './components/ImageCropper';
+import CroppedImageSection from './components/CroppedImageSection';
 
-/**
- * Select an image file.
- */
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            file: null,
+            crop: null,
+            previewCrop: null,
+            imgWidth: null,
+            imgHeight: null,
+            previewMaxWidth: 250,
+            previewMaxHeight: 250
+        };
+        this.onFileChange = this.onFileChange.bind(this);
+        this.onCropAreaChange = this.onCropAreaChange.bind(this);
+    }
 
-var imageType = /^image\//;
-var fileInput = document.querySelector('#file-picker');
+    onFileChange(file) {
+        let reader = new FileReader();
 
-fileInput.addEventListener('change', function(e) {
-	var file = e.target.files.item(0);
+        reader.onload = (e) => {
+            this.preLoadImage(e.target.result);
+        };
 
-	if (!file || !imageType.test(file.type)) {
-		return;
-	}
+        reader.readAsDataURL(file);
+    }
 
-	var reader = new FileReader();
+    preLoadImage(imgUrl) {
+        let img = new Image();
+        img.onload = (e) => {
+            this.setState({
+                file: imgUrl,
+                imgWidth: e.target.naturalWidth,
+                imgHeight: e.target.naturalHeight
+            });
+        };
+        img.src = imgUrl;
+    }
 
-	reader.onload = function(e) {
-		loadEditView(e.target.result);
-	};
+    onCropAreaChange(crop) {
+        this.setState({
+            previewCrop: crop
+        });
+    }
 
-	reader.readAsDataURL(file);
-});
+    render() {
+        return (
+            <div>
+                <section className="header is-orange">
+                    <Logo />
+                </section>
 
-/**
- * Load the image in the crop editor.
- */
-var cropEditor = document.querySelector('#crop-editor');
+                <section className="is-gray">
+                    <FileUploader onFileChange={ this.onFileChange }/>
+                </section>
 
-function loadEditView(dataUrl) {
-	// Pass in with crop={crop}.
-	var crop = {
-		x: 20,
-		y: 10,
-		width: 60,
-		aspect: 3/4
-	};
-	ReactDOM.render(<ReactCrop crop={crop} src={dataUrl} onImageLoaded={onImageLoaded} onComplete={onCropComplete} />, cropEditor);
+                <section className="is-blue">
+                    <ImageCropper crop={ this.state.crop } file={ this.state.file } onChange={ this.onCropAreaChange }/>
+                </section>
+
+                <CroppedImageSection
+                                crop={ this.state.previewCrop }
+                                img={ this.state.file }
+                                width={ this.state.imgWidth }
+                                height={ this.state.imgHeight }
+                                maxWidth={ this.state.previewMaxWidth }
+                                maxHeight={ this.state.previewMaxHeight }
+                />
+            </div>
+        );
+    }
 }
 
-function onImageLoaded(crop) {
-	console.log("Image was loaded. Crop:", crop);
-}
-
-/**
- * On crop complete update the preview.
- */
-function onCropComplete (crop) {
-	// console.log('Crop move complete:', crop);
-}
+ReactDOM.render(<App />, document.getElementById('app'));
