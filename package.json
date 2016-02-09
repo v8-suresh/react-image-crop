@@ -1,0 +1,38 @@
+{
+  "name": "react-image-crop-demo",
+  "version": "0.0.1",
+  "description": "Demo on how to use React Image Crop",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/webpack --progress --colors --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DominicTobias/react-image-crop.git"
+  },
+  "author": "Dominic Tobias <dominic.tobias@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DominicTobias/react-image-crop/issues"
+  },
+  "homepage": "https://github.com/DominicTobias/react-image-crop#readme",
+  "dependencies": {
+    "normalize.css": "^3.0.3",
+    "react": "^0.14",
+    "react-dom": "^0.14",
+    "react-image-crop": "^0.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.8.1",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.1.2",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.13"
+  }
+}
