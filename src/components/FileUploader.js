@@ -82,36 +82,11 @@ class FileUploader extends Component {
     }
 
     uploadFileList(files) {
+        let imageType = /^image\//;
         let file = files[0];
-        let reader = new FileReader();
-        let buffer, int32View;
-        reader.onload = (e) => {
-            buffer = e.target.result;
-            int32View = new Int32Array(buffer);
-            switch(int32View[0]) {
-                case 1196314761:
-                    file.verified_type = "image/png";
-                    break;
-                case 944130375:
-                    file.verified_type = "image/gif";
-                    break;
-                case -1370862270:
-                case 544099650:
-                    file.verified_type = "image/bmp";
-                    break;
-                case -520103681:
-                    file.verified_type = "image/jpeg";
-                    break;
-                default:
-                    console.warn(`[${int32View[0]}] Couldn't verify type for ${file.type}`);
-            }
-            if(file.verified_type) {
-                if(this.props.onFileChange) {
-                    this.props.onFileChange(file);
-                }
-            }
-        };
-        reader.readAsArrayBuffer(file.slice(0, 4));
+        if(imageType.test(file.type) && this.props.onFileChange) {
+            this.props.onFileChange(file);
+        }
     }
 
     renderInputBox() {
