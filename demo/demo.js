@@ -37,15 +37,15 @@ function loadEditView(dataUrl) {
     }
 
     onImageLoaded = (image) => {
-      this.setState({
-        crop: makeAspectCrop({
-          x: 0,
-          y: 0,
-          aspect: 16 / 9,
-          width: 50,
-        }, image.naturalWidth / image.naturalHeight),
-        image,
-      });
+      // this.setState({
+      //   crop: makeAspectCrop({
+      //     x: 0,
+      //     y: 0,
+      //     aspect: 16 / 9,
+      //     width: 50,
+      //   }, image.naturalWidth / image.naturalHeight),
+      //   image,
+      // });
     }
 
     onCropComplete = (crop, pixelCrop) => {
